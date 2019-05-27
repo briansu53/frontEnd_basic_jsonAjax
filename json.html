@@ -5,19 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="json.js">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+    </script>
 </head>
 <body>
-    
+    <h1>JSON/AJAX</h1>
+    <p>印出json字串</p>
+    <p>以for in印出</p>
+    <ul></ul>
+    <span></span>
 </body>
 <script>
-    var home ={
-        "father": 'tom',
-        "mother": 'marry',
-        "son":[
-            {"son1": 'brian'},
-            {"son2": 'jack'},
-        ],
-    };
-    console.log(home.father);
-    </script>
+//1. 取出JSON資料
+var home ={
+    "father": 'tom',
+    "mother": 'marry',
+    "son":[
+        {"son1": 'brian'},
+        {"son2": 'jack'},
+    ],
+};
+
+//將json物件印成字串 
+//取得父親名字
+//取出第一位兒子名稱
+console.log(JSON.stringify(home));
+console.log(home.father);
+console.log(home.son[0].son1);
+console.log(typeof(home));
+
+//2. 以for迴圈印出資料
+var home2 ={
+    "father": 'jim',
+    "mother": 'jenny',
+    "daughters": [
+        {"daughter":'tricia'},
+        {"daughter":'pretty'},
+        {"daughter":'crisitin'},
+    ]
+};
+console.log(home2.daughters.length);
+for (var i in home2.daughters){
+    $('ul').append('<li>'+home2.daughters[i].daughter+'</li>')
+}
+
+//3. 撈取遠端的JSON資料並印在網頁上
+
+/*jQuery ajax語法
+
+$.ajax({
+    type:'GET',
+    url:'要撈的JSON網址',
+    success:function(data){
+        //成功的話傳到data變數
+    }
+});
+
+*/
+
+$.ajax({
+    type: 'GET',
+    url: '/frontEnd_basic_jsonAjax/c1522.json',
+    success:function(data){
+        console.log(typeof(data));
+            $('span').append('<p>'+data[i].date+'</p>')
+    }
+})
+
+</script>
 </html>
